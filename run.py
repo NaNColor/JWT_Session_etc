@@ -41,3 +41,4 @@ api.add_resource(resources.AllUsers, '/users')
 api.add_resource(resources.SecretResource_jwt, '/secret_jwt')
 
 
+

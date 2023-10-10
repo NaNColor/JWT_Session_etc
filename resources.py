@@ -139,6 +139,6 @@ class SecretResource_jwt(Resource):
                 "data": None,
                 "error": str(e)
             }, 500
-    
+
         return make_response(render_template('secret.html',),200)
 
