@@ -1,7 +1,8 @@
 from run import db
+from flask_login import UserMixin
 from passlib.hash import pbkdf2_sha256 as sha256
 
-class UserModel(db.Model):
+class UserModel(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key = True)

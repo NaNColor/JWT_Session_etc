@@ -4,9 +4,11 @@ from models import UserModel, RevokedTokenModel
 from flask import render_template, make_response, redirect, Flask, request, current_app
 import json
 import jwt
+from flask_login import login_required, current_user, login_user
 parser = reqparse.RequestParser()
 parser.add_argument('username', help = 'This field cannot be blank', required = True)
 parser.add_argument('password', help = 'This field cannot be blank', required = True)
+
 
 class UserRegistration(Resource):
     def post(self):
@@ -49,12 +51,12 @@ class UserLogin_jwt(Resource):
         data_buf = json.dumps(mydict)
         data = json.loads(data_buf)
 
-        current_user = UserModel.find_by_username(data['username'])
+        user = UserModel.find_by_username(data['username'])
 
-        if not current_user:
+        if not user:
             return make_response(render_template('login.html', myerror='User {} doesn\'t exist'.format(data['username'])),200 )
         
-        if UserModel.verify_hash(data['password'], current_user.password):
+        if UserModel.verify_hash(data['password'], user.password):
             access_token = create_access_token(identity = data['username'])
             refresh_token = create_refresh_token(identity = data['username'])
             res = make_response(render_template('login2.html',), 200)
@@ -126,8 +128,8 @@ class SecretResource_jwt(Resource):
             return make_response(render_template('secret2.html',),200)
         try:
             data=jwt.decode(token, current_app.config["JWT_SECRET_KEY"], algorithms=["HS256"])
-            current_user=UserModel.find_by_username(data["sub"])
-            if current_user is None:
+            user=UserModel.find_by_username(data["sub"])
+            if user is None:
                 return {
                 "message": "Invalid Authentication token!",
                 "data": None,
@@ -142,3 +144,31 @@ class SecretResource_jwt(Resource):
 
         return make_response(render_template('secret.html',),200)
 
+
+
+class UserLogin_session(Resource):
+    def post(self):
+        username = request.form.get('username')
+        password = request.form.get('password')
+        remember = True if request.form.get('remember') else False
+
+        user = UserModel.find_by_username(username)
+
+        if not user:
+            return make_response(render_template('login_session.html', myerror='User {} doesn\'t exist'.format(username)),200 )
+        if not UserModel.verify_hash(password, user.password):
+            return make_response(render_template('login_session.html', myerror='Wrong password'),200 )
+
+
+        login_user(user, remember=remember)
+        #render_template('profile.html', name=current_user.username)
+        return redirect("/profile")
+
+    def get(self):
+        return make_response(render_template('login_session.html', myerror='0'),200 )
+
+
+# class Profile_session(Resource):
+#     @login_required
+#     def get(self):
+#         render_template('profile.html', name=current_user.username)
