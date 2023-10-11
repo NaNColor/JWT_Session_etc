@@ -26,7 +26,7 @@ app.config['SECRET_KEY'] = '8e977ef74bf745ac153c117a2c9e76c6'
 db = SQLAlchemy(app)
 
 
-import views, models, resources
+import views, models, resources_jwt, resources_session
 
 from models import UserModel
 login_manager = LoginManager()
@@ -42,14 +42,13 @@ with app.app_context():
 
 api = Api(app)
 
-api.add_resource(resources.UserRegistration, '/registration')
-api.add_resource(resources.UserLogin_jwt, '/login_jwt')
-#api.add_resource(resources.UserLogoutAccess, '/logout_jwt/access')
-#api.add_resource(resources.UserLogoutRefresh, '/logout_jwt/refresh')
-#api.add_resource(resources.TokenRefresh, '/token_jwt/refresh')
-api.add_resource(resources.AllUsers, '/users')
-api.add_resource(resources.SecretResource_jwt, '/secret_jwt')
-api.add_resource(resources.UserLogin_session, '/login_session')
-#api.add_resource(resources.Profile_session, '/profile')
+api.add_resource(resources_jwt.UserRegistration, '/registration')
+api.add_resource(resources_jwt.UserLogin_jwt, '/login_jwt')
+api.add_resource(resources_jwt.AllUsers, '/users')
+api.add_resource(resources_jwt.SecretResource_jwt, '/secret_jwt')
+api.add_resource(resources_session.UserLogin_session, '/login_session')
 
 
+# context = ('server.crt', 'server.key')
+# app.run(host='127.0.0.1', ssl_context=context, port=8000,threaded=True, debug=True)# ssl_context=context, 
+    #app.run(host='127.0.0.1',debug=True, ssl_context=context)

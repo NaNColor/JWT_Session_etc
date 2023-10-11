@@ -4,7 +4,7 @@ from models import UserModel, RevokedTokenModel
 from flask import render_template, make_response, redirect, Flask, request, current_app
 import json
 import jwt
-from flask_login import login_required, current_user, login_user
+
 
 
 class UserRegistration(Resource):
@@ -12,7 +12,6 @@ class UserRegistration(Resource):
         mydict = {"username":request.form.get('username'), "password":request.form.get('password')}
         data_buf = json.dumps(mydict)
         data = json.loads(data_buf)
-        #data = parser.parse_args()
 
         if UserModel.find_by_username(data['username']):
             return make_response(render_template('reg.html', myerror='User {} already exists'.format(data['username'])),200)
@@ -138,32 +137,3 @@ class SecretResource_jwt(Resource):
             }, 500
 
         return make_response(render_template('secret.html',),200)
-
-
-
-class UserLogin_session(Resource):
-    def post(self):
-        username = request.form.get('username')
-        password = request.form.get('password')
-        remember = True if request.form.get('remember') else False
-
-        user = UserModel.find_by_username(username)
-
-        if not user:
-            return make_response(render_template('login_session.html', myerror='User {} doesn\'t exist'.format(username)),200 )
-        if not UserModel.verify_hash(password, user.password):
-            return make_response(render_template('login_session.html', myerror='Wrong password'),200 )
-
-
-        login_user(user, remember=remember)
-        #render_template('profile.html', name=current_user.username)
-        return redirect("/profile")
-
-    def get(self):
-        return make_response(render_template('login_session.html', myerror='0'),200 )
-
-
-# class Profile_session(Resource):
-#     @login_required
-#     def get(self):
-#         render_template('profile.html', name=current_user.username)
