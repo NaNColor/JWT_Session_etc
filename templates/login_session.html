@@ -57,6 +57,15 @@ button:hover {
    }
 </style>
 <html>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 <form action="" method="post" ><!-- <form action="" method="post" > -->
       <div class="container">
         <h1>Login JWT</h1>

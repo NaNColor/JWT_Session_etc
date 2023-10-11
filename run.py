@@ -42,7 +42,7 @@ with app.app_context():
 
 api = Api(app)
 
-api.add_resource(resources_jwt.UserRegistration, '/jwt/registration')
+api.add_resource(resources_jwt.UserRegistration, '/registration')
 api.add_resource(resources_jwt.UserLogin_jwt, '/jwt/login')
 api.add_resource(resources_jwt.AllUsers, '/users')
 api.add_resource(resources_jwt.SecretResource_jwt, '/jwt/profile')
