@@ -47,16 +47,22 @@ h1, p {
 </style>
 
 <html>
-<h1> Test your might</h1>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<h1> Session actions</h1>
 <div align="center">
-<a href="/jwt" class="a_demo_five"> JWT</a>
+<a href="/session/login" class="a_demo_five"> Login</a>
 
-<a href="/session" class="a_demo_five"> Sessions</a>
-<a href="/ba" class="a_demo_five"> BasicAuth</a>
+<a href="/session/logout" class="a_demo_five"> Logout</a>
 <p>
-<a href="/oauth" class="a_demo_five"> OAuth</a>
-<a href="/otp" class="a_demo_five"> OTP</a>
-<p>
-<a href="/registration" class="a_demo_five"> Registration</a>
+<a href="/session/profile" class="a_demo_five"> Profile</a>
 </div>
+<a href="/"><p>Go back</p></a>
 <html>

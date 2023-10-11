@@ -52,24 +52,24 @@ def logout_base():
             res.set_cookie('Auth', '', expires=0)
     return res
 
-@app.route('/ba/base')
-def base():
-    cookies = request.cookies.get('Auth')
-    if not cookies:
-        flash('You have not authorized')
-        return redirect("/ba/login")
-    user_data =  base64.b64decode(cookies.encode('ascii')).decode('ascii')
-    if user_data.find(':') == -1:
-        flash('Your authorization was ended')
-        return redirect("/ba/login")
-    else:
-        username = user_data.split(':')[0]
-        user = UserModel.find_by_username(username)
-        if not user:
-            flash('Your authorization was crashed')
+class UserBase_base(Resource):
+    def get(self):
+        cookies = request.cookies.get('Auth')
+        if not cookies:
+            flash('You have not authorized')
             return redirect("/ba/login")
-        password = user_data.split(':')[1]
-        if not UserModel.verify_hash(password, user.password):
-            flash('Your authorization was crashed')
+        user_data =  base64.b64decode(cookies.encode('ascii')).decode('ascii')
+        if user_data.find(':') == -1:
+            flash('Your authorization was ended')
             return redirect("/ba/login")
-    return make_response(render_template('base.html', name = username),200 )
+        else:
+            username = user_data.split(':')[0]
+            user = UserModel.find_by_username(username)
+            if not user:
+                flash('Your authorization was crashed')
+                return redirect("/ba/login")
+            password = user_data.split(':')[1]
+            if not UserModel.verify_hash(password, user.password):
+                flash('Your authorization was crashed')
+                return redirect("/ba/login")
+        return make_response(render_template('base.html', name = username),200 )

@@ -22,19 +22,19 @@ class UserLogin_session(Resource):
 
         login_user(user, remember=remember)
         #render_template('profile.html', name=current_user.username)
-        return redirect("/profile")
+        return redirect("/session/profile")
 
     def get(self):
         return make_response(render_template('login_session.html', myerror='0'),200 )
 
 
-@app.route('/logout')
+@app.route('/session/logout')
 @login_required
 def logout():
     logout_user()
-    resp.set_cookie('sessionID', '', expires=0)
-    return redirect("/login_session")
-@app.route('/profile')
+    #resp.set_cookie('sessionID', '', expires=0)
+    return redirect("/session/login")
+@app.route('/session/profile')
 @login_required
 def login():
     return render_template('profile.html', name=current_user.username)

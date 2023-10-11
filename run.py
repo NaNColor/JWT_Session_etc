@@ -30,7 +30,7 @@ import views, models, resources_jwt, resources_session, resources_base
 
 from models import UserModel
 login_manager = LoginManager()
-login_manager.login_view = '/login_session'
+login_manager.login_view = '/session/login'
 login_manager.init_app(app)
 
 @login_manager.user_loader
@@ -42,18 +42,18 @@ with app.app_context():
 
 api = Api(app)
 
-api.add_resource(resources_jwt.UserRegistration, '/registration')
-api.add_resource(resources_jwt.UserLogin_jwt, '/login_jwt')
+api.add_resource(resources_jwt.UserRegistration, '/jwt/registration')
+api.add_resource(resources_jwt.UserLogin_jwt, '/jwt/login')
 api.add_resource(resources_jwt.AllUsers, '/users')
-api.add_resource(resources_jwt.SecretResource_jwt, '/secret_jwt')
-api.add_resource(resources_session.UserLogin_session, '/login_session')
+api.add_resource(resources_jwt.SecretResource_jwt, '/jwt/profile')
+api.add_resource(resources_session.UserLogin_session, '/session/login')
 
 
 
 
 #api.add_resource(resources_base.UserLogin_base, '/ba/login')
 #api.add_resource(resources_base.UserLogout_base, '/ba/logout')
-#api.add_resource(resources_base.UserBase_base, '/ba/base')
+api.add_resource(resources_base.UserBase_base, '/ba/base')
 
 # context = ('server.crt', 'server.key')
 # app.run(host='127.0.0.1', ssl_context=context, port=8000,threaded=True, debug=True)# ssl_context=context, 
