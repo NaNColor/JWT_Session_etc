@@ -15,3 +15,4 @@ def index_jwt():
 def index_session():
     ref = make_response(render_template('index_session.html',),200)
     return ref
+    

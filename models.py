@@ -56,3 +56,25 @@ class RevokedTokenModel(db.Model):
     def is_jti_blacklisted(cls, jti):
         query = cls.query.filter_by(jti = jti).first()
         return bool(query)
+
+
+class OTPModel(db.Model):
+    __tablename__ = 'otps'
+
+    username = db.Column(db.String(120), primary_key = True)
+    otp = db.Column(db.String(120), nullable = False)
+    
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    @classmethod
+    def find_by_username(cls, username):
+        return cls.query.filter_by(username = username).first()
+
+    @classmethod
+    def change_otp(cls, username, new_otp):
+        user = cls.query.filter_by(username = username).first()
+        user.otp = new_otp
+        db.session.commit()
+        return 

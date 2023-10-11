@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title> <!--Change the text to "Register"-->
+  </head>
+<style>
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, p {
+  text-align: center;
+}
+
+input {
+  margin: 0.25em 0em 1em 0em;
+  outline: none;
+  padding: 0.5em;
+  border: none;
+  background-color: rgb(225, 225, 225);
+  border-radius: 0.25em;
+  color: black;
+}
+
+button {
+  padding: 0.75em;
+  border: none;
+  outline: none;
+  background-color: rgb(68, 18, 232);
+  color: white;
+  border-radius: 0.25em;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: rgb(41, 4, 164);
+}
+
+.error{
+   opacity: 0.6;
+   background: #f00; /* Цвет фона */
+   padding: 5px; /* Поля вокруг текста */
+   }
+</style>
+
+
+<html>
+
+<h1>Success</h1>
+<a href="/mfa/profile"><p> <button>Profile</button></p> </a>
+<a href="/mfa"> <p>Go back</p></a>
+<p class="result" style="color:blue"></p>
+
+</html>
