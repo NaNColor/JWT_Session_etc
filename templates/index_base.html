@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Choose action</title> <!--Change the text to "Register"-->
+  </head>
+
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, p {
+  text-align: center;
+}
+
+.a_demo_five {
+  background-color:#5b5bf0;
+  width:150px;
+  display:inline-block;
+  font-family: 'Open Sans', sans-serif;
+  font-size:12px;
+  text-decoration:none;
+  color:#fff;
+  position:relative;
+  margin-top:40px;
+  padding-bottom:10px;
+  padding-top:10px;
+  background-image: linear-gradient(bottom, rgb(91, 91, 240) 100%, rgb(14, 14, 237) 0%);
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: inset 0px 1px 0px #ca73f8, 0px 5px 0px 0px #8787ed, 0px 10px 5px #999;
+}
+
+.a_demo_five:active {
+  top:3px;
+  background-image: linear-gradient(bottom, rgb(168,48,232) 0%, rgb(141,32,196) 100%);
+  box-shadow: inset 0px 4px 1px #ca73f8 0px 2px 0px 0px #8787ed, 0px 5px 3px #999;
+}
+
+.a_demo_five:active::before {
+  top: -33px;
+  box-shadow: 0px 3px 0px #ca73f8;
+}
+</style>
+
+<html>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<h1> Base actions</h1>
+<div align="center">
+<a href="/ba/login" class="a_demo_five"> Login</a>
+
+<a href="/ba/logout" class="a_demo_five"> Logout</a>
+<p>
+<a href="/ba/base" class="a_demo_five"> BASE</a>
+</div>
+<html>

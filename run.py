@@ -26,7 +26,7 @@ app.config['SECRET_KEY'] = '8e977ef74bf745ac153c117a2c9e76c6'
 db = SQLAlchemy(app)
 
 
-import views, models, resources_jwt, resources_session
+import views, models, resources_jwt, resources_session, resources_base
 
 from models import UserModel
 login_manager = LoginManager()
@@ -48,6 +48,12 @@ api.add_resource(resources_jwt.AllUsers, '/users')
 api.add_resource(resources_jwt.SecretResource_jwt, '/secret_jwt')
 api.add_resource(resources_session.UserLogin_session, '/login_session')
 
+
+
+
+#api.add_resource(resources_base.UserLogin_base, '/ba/login')
+#api.add_resource(resources_base.UserLogout_base, '/ba/logout')
+#api.add_resource(resources_base.UserBase_base, '/ba/base')
 
 # context = ('server.crt', 'server.key')
 # app.run(host='127.0.0.1', ssl_context=context, port=8000,threaded=True, debug=True)# ssl_context=context, 
