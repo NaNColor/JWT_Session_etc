@@ -26,7 +26,7 @@ app.config['SECRET_KEY'] = '8e977ef74bf745ac153c117a2c9e76c6'
 db = SQLAlchemy(app)
 
 
-import views, models, resources_jwt, resources_session, resources_base, resources_mfa
+import views, models, resources_jwt, resources_session, resources_base, resources_mfa, resources_apikeys
 
 from models import UserModel
 login_manager = LoginManager()

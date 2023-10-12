@@ -78,3 +78,18 @@ class OTPModel(db.Model):
         user.otp = new_otp
         db.session.commit()
         return 
+
+class APIkeysModel(db.Model):
+    __tablename__ = 'apikeys'
+
+    apikey = db.Column(db.String(120), primary_key = True)
+    username = db.Column(db.String(120), nullable = False)
+    
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    @classmethod
+    def find_by_apikey(cls, apikey):
+        return cls.query.filter_by(apikey=apikey).first()
+
