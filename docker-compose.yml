@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./app
+    volumes:
+      - ./app:/app
+    ports:
+      - 5001:5000
+    env_file:
+      - ./app/.flaskenv

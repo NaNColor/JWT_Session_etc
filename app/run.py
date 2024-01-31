@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint, make_response, render_template, redirect
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
@@ -48,7 +48,21 @@ api.add_resource(resources_jwt.AllUsers, '/users')
 api.add_resource(resources_jwt.SecretResource_jwt, '/jwt/profile')
 api.add_resource(resources_session.UserLogin_session, '/session/login')
 
+@app.route('/')
+def index():
+    ref = make_response(render_template('index.html',),200)
+    return ref
 
+@app.route('/jwt')
+def index_jwt():
+    ref = make_response(render_template('index_jwt.html',),200)
+    return ref
+
+@app.route('/session')
+def index_session():
+    ref = make_response(render_template('index_session.html',),200)
+    return ref
+    
 
 
 #api.add_resource(resources_base.UserLogin_base, '/ba/login')
@@ -56,5 +70,5 @@ api.add_resource(resources_session.UserLogin_session, '/session/login')
 api.add_resource(resources_base.UserBase_base, '/ba/base')
 
 # context = ('server.crt', 'server.key')
-# app.run(host='127.0.0.1', ssl_context=context, port=8000,threaded=True, debug=True)# ssl_context=context, 
-    #app.run(host='127.0.0.1',debug=True, ssl_context=context)
+# app.run(host='127.0.0.1', ssl_context=context, port=8000,threaded=True, debug=True)# #ssl_context=context, 
+app.run(host='0.0.0.0',debug=True, port=5000)
