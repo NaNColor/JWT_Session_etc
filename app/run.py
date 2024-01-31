@@ -3,6 +3,7 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_login import LoginManager
+import os
 
 app = Flask(__name__)
 
@@ -17,7 +18,7 @@ def check_if_token_in_blocklist(decrypted_token):
     jti = decrypted_token['jti']
     return models.RevokedTokenModel.is_jti_blocklisted(jti)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL", "sqlite://app.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '8e977ef74bf745ac153c117a2c9e76c6'
 
