@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_login import LoginManager
 import os
+from time import sleep
 
 app = Flask(__name__)
 
@@ -38,8 +39,15 @@ login_manager.init_app(app)
 def load_user(user_id):
     return UserModel.query.get(int(user_id))
 
-with app.app_context():
-    db.create_all()
+resflag = None
+while resflag is None:
+    try:
+        with app.app_context():
+            db.create_all()
+        result = 1
+    except:
+        sleep(2)
+        pass
 
 api = Api(app)
 
